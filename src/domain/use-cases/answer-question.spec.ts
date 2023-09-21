@@ -1,8 +1,7 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 
-import { expect, test } from 'vitest'
-import { Answer } from '../entities/answer'
-import { AnswersRepository } from '../repositories/answers-repository'
+import { Answer } from '@/domain/entities/answer'
+import { AnswersRepository } from '@/domain/repositories/answers-repository'
 import { AnswerQuestionUseCase } from './answer-question'
 
 const fakeAnswerRepository: AnswersRepository = {
