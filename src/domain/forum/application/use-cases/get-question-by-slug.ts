@@ -10,7 +10,7 @@ interface GetQuestionBySlugUseCaseResponse {
 }
 
 export class GetQuestionBySlugUseCase {
-  constructor(private repository: QuestionsRepository) { }
+  constructor(private repository: QuestionsRepository) {}
 
   async execute({
     slug,
