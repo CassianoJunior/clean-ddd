@@ -1,19 +1,24 @@
+import { Answer } from '@/domain/forum/enterprise/entities/answer'
 import { AnswersRepository } from '../repositories/answers-repository'
 
-interface DeleteAnswerUseCaseRequest {
+interface EditAnswerUseCaseRequest {
   authorId: string
   answerId: string
+  content: string
 }
 
-interface DeleteAnswerUseCaseResponse {}
+interface EditAnswerUseCaseResponse {
+  answer: Answer
+}
 
-export class DeleteAnswerUseCase {
+export class EditAnswerUseCase {
   constructor(private answersRepository: AnswersRepository) {}
 
   async execute({
-    answerId,
     authorId,
-  }: DeleteAnswerUseCaseRequest): Promise<DeleteAnswerUseCaseResponse> {
+    answerId,
+    content,
+  }: EditAnswerUseCaseRequest): Promise<EditAnswerUseCaseResponse> {
     const answer = await this.answersRepository.findById(answerId)
 
     if (!answer) {
@@ -24,8 +29,12 @@ export class DeleteAnswerUseCase {
       throw new Error('Not allowed.')
     }
 
-    await this.answersRepository.delete(answer)
+    answer.content = content
 
-    return {}
+    await this.answersRepository.save(answer)
+
+    return {
+      answer,
+    }
   }
 }
